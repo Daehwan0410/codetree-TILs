@@ -1,4 +1,6 @@
-s = open('input.txt')
+import sys
+
+s = sys.stdin
 n, m, k = map(int, s.readline().split())
 board = [list(map(int, s.readline().split())) for _ in range(n)]
 pl = []
@@ -46,18 +48,17 @@ for _ in range(k):
             pds[winplay][2] = max(temp2)
             temp2[temp2.index(max(temp2))] = 0
             board[nx][ny] = temp2 
-            print(_, '번',winplay, pds[winplay][2],lossplay, pds[lossplay][2])
             pds[lossplay][2] = 0
             while True:
                 lnx = pl[lossplay][0] + dxy[pds[lossplay][0]][0]
                 lny = pl[lossplay][1] + dxy[pds[lossplay][0]][1]
                 if [lnx, lny] not in pl and 0 <= lnx< n and  0<= lny< n:
                     pl[lossplay] =[lnx, lny]
-                    temp2 = []             
+                    temp2 = []
                     try:
-                        temp2.extend(board[nx][ny])
+                        temp2.extend(board[lnx][lny])
                     except:
-                        temp2.append(board[nx][ny])
+                        temp2.append(board[lnx][lny])
                     pds[lossplay][2] = max(temp2)
                     temp2[temp2.index(max(temp2))]= 0
                     board[lnx][lny] = temp2
