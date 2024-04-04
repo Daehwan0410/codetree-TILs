@@ -38,19 +38,31 @@ for _ in range(k):
             else:
                 lossplay = i
                 winplay = j
-            score[winplay] = abs(sum(pds[i][1:]) - sum(pds[j][1:]))
-            temp = [pds[winplay][2], pds[lossplay][2], board[nx][ny]]
-            pds[winplay][2] = max(temp)
-            temp[temp.index(max(temp))] = 0
-            board[nx][ny] = max(temp)          
+                
+            score[winplay] +=  abs(sum(pds[i][1:]) - sum(pds[j][1:]))
+            temp2 = [pds[winplay][2], pds[lossplay][2]]             
+            try:
+                temp2.extend(board[nx][ny])
+            except:
+                temp2.append(board[nx][ny])
+            pds[winplay][2] = max(temp2)
+            temp2[temp2.index(max(temp2))] = 0
+            board[nx][ny] = temp2         
+#             print(winplay,pds[winplay][1:], lossplay, pds[lossplay][1:])
             pds[lossplay][2] = 0
             while True:
                 lnx = pl[lossplay][0] + dxy[pds[lossplay][0]][0]
                 lny = pl[lossplay][1] + dxy[pds[lossplay][0]][1]
                 if [lnx, lny] not in pl and 0 <= lnx< n and  0<= lny< n:
                     pl[lossplay] =[lnx, lny]
-                    pds[lossplay][2] = board[lnx][lny]
-                    board[lnx][lny] = 0
+                    temp2 = []             
+                    try:
+                        temp2.extend(board[nx][ny])
+                    except:
+                        temp2.append(board[nx][ny])
+                    pds[lossplay][2] = max(temp2)
+                    temp2[temp2.index(max(temp2))]= 0
+                    board[lnx][lny] = temp2
                     break
                 else:
                     pds[lossplay][0] = (pds[lossplay][0] + 1) % 4
@@ -58,8 +70,12 @@ for _ in range(k):
 #         이동한 장소에 플레이어가 없을때 
         else:
             pl[i] = [nx, ny]
-            temp = [pds[i][2], board[nx][ny]]
-            pds[i][2] = max(temp)
-            temp[temp.index(max(temp))] = 0
-            board[nx][ny] = max(temp)
+            temp1 = [pds[i][2]]
+            try:
+                temp1.extend(board[nx][ny])
+            except:
+                temp1.append(board[nx][ny])
+            pds[i][2] = max(temp1)
+            temp1[temp1.index(max(temp1))] = 0
+            board[nx][ny] = temp1
 print(*score)
