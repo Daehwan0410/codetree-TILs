@@ -1,6 +1,4 @@
-import sys
-
-s = sys.stdin
+s = open('input.txt')
 n, m, k = map(int, s.readline().split())
 board = [list(map(int, s.readline().split())) for _ in range(n)]
 pl = []
@@ -47,8 +45,8 @@ for _ in range(k):
                 temp2.append(board[nx][ny])
             pds[winplay][2] = max(temp2)
             temp2[temp2.index(max(temp2))] = 0
-            board[nx][ny] = temp2         
-#             print(winplay,pds[winplay][1:], lossplay, pds[lossplay][1:])
+            board[nx][ny] = temp2 
+            print(_, '번',winplay, pds[winplay][2],lossplay, pds[lossplay][2])
             pds[lossplay][2] = 0
             while True:
                 lnx = pl[lossplay][0] + dxy[pds[lossplay][0]][0]
