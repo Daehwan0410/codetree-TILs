@@ -31,8 +31,9 @@ for _ in range(1,k+1):
         if abs(px -x) + abs(py- y) <=3:
             nx = x + dxy[d][0]
             ny = y + dxy[d][1]
-            if 0<= nx <n and 0 <= ny < n and [nx, ny] != [px , py]: 
-                hlist[i][:2] = [nx, ny]
+            if 0<= nx <n and 0 <= ny < n: 
+                if [nx, ny] != [px , py]: 
+                    hlist[i][:2] = [nx, ny]
             else:
                 d = (d+2) % 4
                 nx = x + dxy[d][0]
