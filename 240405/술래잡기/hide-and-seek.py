@@ -37,7 +37,7 @@ for _ in range(1,k+1):
                 d = (d+2) % 4
                 nx = x + dxy[d][0]
                 ny = y + dxy[d][1]
-                if nx != px and ny != py:
+                if [nx, ny] != [px , py]: 
                     hlist[i]= [nx, ny, d, bt]
     #move people               
 
